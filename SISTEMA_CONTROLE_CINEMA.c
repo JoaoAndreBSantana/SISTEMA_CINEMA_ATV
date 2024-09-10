@@ -1,6 +1,6 @@
 #include <stdio.h>
 #include <string.h>
-#include <stdlib.h>
+
 
 
 
@@ -104,7 +104,7 @@ void consultar_FILME(SALA pes) {//PARAMENTRO DA SALA
 
 
 void imprimir_filme(SALA sala) {//FUNCAO COM UNICO PROPOSITO DE DEIXAR MAIS ORGANIZADO O CODIGO MESMO
-	system("cls");
+
     consultar_FILME(sala); //IMPRIME A FUNÇAO DE CONSULTA COM PARAMETRO SALA
 }
 
@@ -114,7 +114,7 @@ int opcao =1;//VARIAVEL GLOBAL PARA DO WHILE DENTRO DO MAIN
 int main() {
 INFO_FILME pes = {"", "", 0};//inicializando pra n dar problemas novamente no strcpy
 	do{//INICIO DO LOOP 
-	system("cls");
+	
 	
     int sua_idade, esc_sala;//VARIAVEIS DE IDADE E ESCOLHA DA SALA
 	printf("\n");
@@ -168,25 +168,25 @@ int esc_filme;//VARIAVEL DA ESCOLHA DO FILME
      scanf("%d",&esc_filme);//LENDO A ESCOLHA DO FILME
      
             if (esc_filme == 1) {//SE A ESCOLHA FOR O FILME 1
-                system("cls");
+            
                  imprimir_assento(assento_batman);
                  escolher_assento(assento_batman);
             strcpy(pes.filme_escolhido, sala1.filme.Titulo_Filme[0]);
             strcpy(pes.sessao_escolhida, "SESSAO DAS 13h");
             pes.assento_escolhido = esc_assento;
-            system("cls");
+            
             imprimir_informacoes(pes, sua_idade);  
         
         
         
             }else if (esc_filme == 2) {//SE A ESCOLHA FOR O FILME 2
-                 system("cls");
+                 
                   imprimir_assento(assento_homem_formiga);//IMPRIME AS FUNCOES DE MAIS CEDO
                  escolher_assento(assento_homem_formiga);
             strcpy(pes.filme_escolhido, sala1.filme.Titulo_Filme[1]);//STRCPY É UMA FERRAMENTA DA BIBLIOTECA STRING.H E SERVE PARA COPIAR UMA STRING
             strcpy(pes.sessao_escolhida, "SESSAO DAS 15h");//NESTE CASO SO TA ACRESCENTANDO NA STRING sessao_escolhida
             pes.assento_escolhido = esc_assento;
-            system("cls");
+            
             imprimir_informacoes(pes, sua_idade);/*STRUCT DAS INFO NOVAMENTE QUE IMPRIME AS INFO COM OS PARAMETROS DE PES E A IDADE*/
     
         } 
@@ -199,25 +199,25 @@ int esc_filme;//VARIAVEL DA ESCOLHA DO FILME
     printf("DIGITE (1) PARA O FILME: O Exorcista(SESSAO 19h)\nDIGITE (2) PARA O FILME: Atividade Paranormal(SESSAO 21h)\n");
      scanf("%d",&esc_filme);
             if (esc_filme == 1) {
-                system("cls");
+                
                  imprimir_assento(assento_exorcista);
                  escolher_assento(assento_exorcista);
             strcpy(pes.filme_escolhido, sala2.filme.Titulo_Filme[0]);//funçaode copia a string armazenada em sala2.filme.Titulo_Filme[0] e por ai vai 
             strcpy(pes.sessao_escolhida, "SESSAO DAS 19h");
             pes.assento_escolhido = esc_assento;
-            system("cls");
+            
             imprimir_informacoes(pes, sua_idade);
             
 			       
                  
             }else if (esc_filme == 2) {
-                system("cls");
+                
                  imprimir_assento(assento_atividade_paranormal);
                  escolher_assento(assento_atividade_paranormal);
             strcpy(pes.filme_escolhido, sala2.filme.Titulo_Filme[1]);
             strcpy(pes.sessao_escolhida, "SESSAO DAS 21h");
             pes.assento_escolhido = esc_assento;
-            system("cls");
+            
             imprimir_informacoes(pes, sua_idade);
                   
                 
