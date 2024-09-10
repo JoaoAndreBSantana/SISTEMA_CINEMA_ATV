@@ -26,16 +26,19 @@ void imprimir_informacoes(INFO_FILME pes, int idade) {
     }
 }
 
-
-int assento[3]={0,0,0};//ARRAY DE ASSENTO COM 3 LUGARES. ESSE ARRAY É GLOBAL OU SEJA ELE VALE PARA TODO O CODIGO
+//ARRAYS GLOBAIS
+int assento_batman[5] = {0, 0, 0, 0, 0}; // ASSENTOS PARA O FILME DO BATMAN
+int assento_homem_formiga[5] = {0, 0, 0, 0, 0}; // ASSENTOS PARA O FILME DO HOMEM-FORMIGA
+int assento_exorcista[5] = {0, 0, 0, 0, 0}; // ASSENTOS PARA O FILME O EXORCISTA
+int assento_atividade_paranormal[5] = {0, 0, 0, 0, 0}; // ASSENTOS PARA O FILME ATIVIDADE PARANORMAL
 
 //funçao para imprimir os assentos
-void imprimir_assento(){
+void imprimir_assento(int assentos_FILME[]){
     printf("---ASSENTOS---\n");
     
-    for(int i = 0; i < 3; i++){/*LOOP PARA PERCORRER OS ASSENTOS*/
-        printf("ASSENTO:%d\n",assento[i]);
-        if(assento[i]==0){printf("DISPONIVEL\n\n");//CASO O ASSENTO ELE SEJA IGUAL A 0, ELE É DISPONIVEL... PRIMEIRAMENTE TDOS SAO DISPONOVEIS DE INICIO
+    for(int i = 0; i < 5; i++){/*LOOP PARA PERCORRER OS ASSENTOS*/
+        printf("ASSENTO:%d\n",1+i);
+        if(assentos_FILME[i]==0){printf("DISPONIVEL\n\n");//CASO O ASSENTO ELE SEJA IGUAL A 0, ELE É DISPONIVEL... PRIMEIRAMENTE TDOS SAO DISPONOVEIS DE INICIO
           }else{printf("INDISPONIVEL\n\n");}//CASO CONTRARIO E NEGATIVO
     }
 }
@@ -44,21 +47,21 @@ int esc_assento;//MAIS UMA VARIAVEL GLOBAL. DESSA VEZ ELA SERVE PARA GUARDAR A E
 
 
 
-void escolher_assento(){//FUNÇÃO DA ESCOLHA DO ASSENTO
+void escolher_assento(int assentos_FILME[]){//FUNÇÃO DA ESCOLHA DO ASSENTO
     int op_assento=1;/*VARIAVEL PARA CONTROLAR DO WHILE... ELE SE INICIA EM 1 E CASO SEJA DIFERENTE ELE TERMINA. É SIMPLES*/
     do{//INICIO DO "LOOP"
-    printf("ESCOLHA UM ASSENTO ENTRE 1 A 3\n");
+    printf("ESCOLHA UM ASSENTO ENTRE 1 A 5\n");
     scanf("%d",&esc_assento);//ESCOLHA DO ASSENTO
     
-    if(esc_assento<1 || esc_assento>3){//CASO O CLIENTE ESCOLHA UM ASSENTO Q N EXISTA TIPO 7
+    if(esc_assento<1 || esc_assento>5){//CASO O CLIENTE ESCOLHA UM ASSENTO Q N EXISTA TIPO 7
         printf("ASSENTO INEXISTENTE! TENTE NOVAMENTE\n");
         continue;//CONTINUE RETORNA PARA O INICIO DO DO WHILE... RETOMANDD A CHANCE DE ESCOLHA DE ASSENTO
     }
   
     
     
-    if(assento[esc_assento-1]==0){//o assento[]começa em 0 ou seja se a escolha for 1 o valor iria para o assento 2 
-        assento[esc_assento-1]=1;//SUPOMOS QUE ESC_ASSENTO SEJA 2, NO ARRAY SERIA O {0,0,0} O ASSENTO 3... ENTAO E NECESSARIO E PRATICO SUBTRAIR PARA IMPRIMIR O ASSENTO CORRETO
+    if(assentos_FILME[esc_assento-1]==0){//o assento[]começa em 0 ou seja se a escolha for 1 o valor iria para o assento 2 
+        assentos_FILME[esc_assento-1]=1;//SUPOMOS QUE ESC_ASSENTO SEJA 2, NO ARRAY SERIA O {0,0,0} O ASSENTO 3... ENTAO E NECESSARIO E PRATICO SUBTRAIR PARA IMPRIMIR O ASSENTO CORRETO
         printf("---ASSENTO %d RESERVADO---\n",esc_assento);//IMPRIME CORRETAMENTE O ASSENTO 
       //  printf("DESEJA CONSULTAR O INGRESSO?\n-SIM(1)\n-NAO(0)\n");
         op_assento=0;// E CONCLUI O LOOP 
@@ -115,7 +118,7 @@ INFO_FILME pes = {"", "", 0};//inicializando pra n dar problemas novamente no st
 	
     int sua_idade, esc_sala;//VARIAVEIS DE IDADE E ESCOLHA DA SALA
 	printf("\n");
-    printf("SALAS DO CINEMA:\nSALA01 - SESSAO DAS 12h-13h & 14h-15h\nSALA02 - SESSAO DAS 18h-19h & 20h-21h\n");
+    printf("SALAS DO CINEMA:\nSALA01 - SESSAO DAS 13h & 15h\nSALA02 - SESSAO DAS 19h & 21h\n");
     printf("INGRESSO PADRAO: 10 REAIS\n");
     printf("-------------------------");
     printf("\n");
@@ -134,7 +137,7 @@ INFO_FILME pes = {"", "", 0};//inicializando pra n dar problemas novamente no st
         printf("SALA 2 INDISPONIVEL PARA MENORES DE IDADE:\n");//A SALA 2 É EXCLUSIVA PARA MAIORES DE IDADE
     } else {/*CASO CONTRARIO É INICIALIZADO AS INFO DA SALA 1 E 2... ACHEI MAIS FACIL ASSIM MAS DEVE TER OUTRA MANEIRA*/
         SALA sala1 = {
-            .capacidade_sala = 3,
+            .capacidade_sala = 5,
             .CLA_indicativa = {12, 12},
             .filme = {//FILME JA É UMA STRUCT DENTRO DE OUTRA POR ISSO A { } 
                 .Titulo_Filme = {"Batman", "Homem-formiga"},
@@ -146,7 +149,7 @@ INFO_FILME pes = {"", "", 0};//inicializando pra n dar problemas novamente no st
         
         
         SALA sala2 = {//A MESMA COISA DA SALA 1 ACIMA SO MUDANDO AS INFO
-            .capacidade_sala = 3,
+            .capacidade_sala = 5,
             .CLA_indicativa = {18, 18},
             .filme = {
                 .Titulo_Filme = {"O Exorcista", "Atividade Paranormal"},
@@ -161,15 +164,15 @@ int esc_filme;//VARIAVEL DA ESCOLHA DO FILME
             case 1://PRIMEIRO CASE
                 imprimir_filme(sala1);/*IMPRIME ASS INFORMACOES DA SAALA 1*/
     printf("ESCOLHA O FILME:\n");
-    printf("DIGITE (1) PARA O FILME: Batman(SESSAO 12h-13h)\nDIGITE (2) PARA O FILME: Homem-Formiga(SESSAO 14h-15h)\n");
+    printf("DIGITE (1) PARA O FILME: Batman(SESSAO 13h)\nDIGITE (2) PARA O FILME: Homem-Formiga(SESSAO 15h)\n");
      scanf("%d",&esc_filme);//LENDO A ESCOLHA DO FILME
      
             if (esc_filme == 1) {//SE A ESCOLHA FOR O FILME 1
                 system("cls");
-                 imprimir_assento();
-                 escolher_assento();
+                 imprimir_assento(assento_batman);
+                 escolher_assento(assento_batman);
             strcpy(pes.filme_escolhido, sala1.filme.Titulo_Filme[0]);
-            strcpy(pes.sessao_escolhida, "SESSAO DAS 12h-13h");
+            strcpy(pes.sessao_escolhida, "SESSAO DAS 13h");
             pes.assento_escolhido = esc_assento;
             system("cls");
             imprimir_informacoes(pes, sua_idade);  
@@ -178,10 +181,10 @@ int esc_filme;//VARIAVEL DA ESCOLHA DO FILME
         
             }else if (esc_filme == 2) {//SE A ESCOLHA FOR O FILME 2
                  system("cls");
-                  imprimir_assento();//IMPRIME AS FUNCOES DE MAIS CEDO
-                 escolher_assento();
+                  imprimir_assento(assento_homem_formiga);//IMPRIME AS FUNCOES DE MAIS CEDO
+                 escolher_assento(assento_homem_formiga);
             strcpy(pes.filme_escolhido, sala1.filme.Titulo_Filme[1]);//STRCPY É UMA FERRAMENTA DA BIBLIOTECA STRING.H E SERVE PARA COPIAR UMA STRING
-            strcpy(pes.sessao_escolhida, "SESSAO DAS 14h-15h");//NESTE CASO SO TA ACRESCENTANDO NA STRING sessao_escolhida
+            strcpy(pes.sessao_escolhida, "SESSAO DAS 15h");//NESTE CASO SO TA ACRESCENTANDO NA STRING sessao_escolhida
             pes.assento_escolhido = esc_assento;
             system("cls");
             imprimir_informacoes(pes, sua_idade);/*STRUCT DAS INFO NOVAMENTE QUE IMPRIME AS INFO COM OS PARAMETROS DE PES E A IDADE*/
@@ -193,14 +196,14 @@ int esc_filme;//VARIAVEL DA ESCOLHA DO FILME
             	//ESSA PARTE É A PRIMEIRA PARTE APENAS MUDANDO AS INFORMAÇOES DA SESSAO E FILME
                 imprimir_filme(sala2);
                 printf("ESCOLHA O FILME:\n");
-    printf("DIGITE (1) PARA O FILME: O Exorcista(SESSAO 18h-19h)\nDIGITE (2) PARA O FILME: Atividade Paranormal(SESSAO 20h-21h)\n");
+    printf("DIGITE (1) PARA O FILME: O Exorcista(SESSAO 19h)\nDIGITE (2) PARA O FILME: Atividade Paranormal(SESSAO 21h)\n");
      scanf("%d",&esc_filme);
             if (esc_filme == 1) {
                 system("cls");
-                 imprimir_assento();
-                 escolher_assento();
+                 imprimir_assento(assento_exorcista);
+                 escolher_assento(assento_exorcista);
             strcpy(pes.filme_escolhido, sala2.filme.Titulo_Filme[0]);//funçaode copia a string armazenada em sala2.filme.Titulo_Filme[0] e por ai vai 
-            strcpy(pes.sessao_escolhida, "SESSAO DAS 18h-19h");
+            strcpy(pes.sessao_escolhida, "SESSAO DAS 19h");
             pes.assento_escolhido = esc_assento;
             system("cls");
             imprimir_informacoes(pes, sua_idade);
@@ -209,10 +212,10 @@ int esc_filme;//VARIAVEL DA ESCOLHA DO FILME
                  
             }else if (esc_filme == 2) {
                 system("cls");
-                 imprimir_assento();
-                 escolher_assento();
+                 imprimir_assento(assento_atividade_paranormal);
+                 escolher_assento(assento_atividade_paranormal);
             strcpy(pes.filme_escolhido, sala2.filme.Titulo_Filme[1]);
-            strcpy(pes.sessao_escolhida, "SESSAO DAS 20h-21h");
+            strcpy(pes.sessao_escolhida, "SESSAO DAS 21h");
             pes.assento_escolhido = esc_assento;
             system("cls");
             imprimir_informacoes(pes, sua_idade);
@@ -233,6 +236,7 @@ int esc_filme;//VARIAVEL DA ESCOLHA DO FILME
 
 
 }while(opcao==1);
+printf("---OBRIGADO PELA COMPRA---\n");
 
     return 0;
 }
