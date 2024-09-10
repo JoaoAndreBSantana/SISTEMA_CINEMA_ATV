@@ -202,7 +202,7 @@ int esc_filme;//VARIAVEL DA ESCOLHA DO FILME
                 break;
             case 2:
             	//ESSA PARTE É A PRIMEIRA PARTE APENAS MUDANDO AS INFORMAÇOES DA SESSAO E FILME
-                consultar_FILME(sala1);
+                consultar_FILME(sala2);
                 printf("ESCOLHA O FILME:\n");
     printf("DIGITE (1) PARA O FILME: O Exorcista(SESSAO 19h)\nDIGITE (2) PARA O FILME: Atividade Paranormal(SESSAO 21h)\n");
      scanf("%d",&esc_filme);
