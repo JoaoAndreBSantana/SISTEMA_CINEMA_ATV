@@ -2,6 +2,8 @@
 #include <string.h>
 
 
+int esc_assento;//MAIS UMA VARIAVEL GLOBAL. DESSA VEZ ELA SERVE PARA GUARDAR A ESCOLHA DO ASSENTO
+
 
 
 //STRUCT CRIADA PARA GUARDAR AS ESCOLHAS DO CLIENTE
@@ -10,6 +12,30 @@ typedef struct {
     char sessao_escolhida[80];
     int assento_escolhido;
 } INFO_FILME;
+
+
+
+typedef struct { // STRUCT DO FILME. GUARDANDO O TITULO ETC
+    char Titulo_Filme[2][80];
+    char genero[2][80];
+    char ator_papel[2][80];
+} FILME;
+
+
+
+typedef struct { // STRUCT DA SALA... 
+    int capacidade_sala;
+    int CLA_indicativa[2];
+    FILME filme;// O STRUCT DO FILME ESTA AQ DENTRO OU SEJA TUDO NO STRUCT FILME ESTARIA JUNTO COM A SALA OBVIAMENTE
+} SALA;
+
+
+//ARRAYS GLOBAIS
+int assento_batman[5] = {0, 0, 0, 0, 0}; // ASSENTOS PARA O FILME DO BATMAN
+int assento_homem_formiga[5] = {0, 0, 0, 0, 0}; // ASSENTOS PARA O FILME DO HOMEM-FORMIGA
+int assento_exorcista[5] = {0, 0, 0, 0, 0}; // ASSENTOS PARA O FILME O EXORCISTA
+int assento_atividade_paranormal[5] = {0, 0, 0, 0, 0}; // ASSENTOS PARA O FILME ATIVIDADE PARANORMAL
+
 
 
 
@@ -26,11 +52,8 @@ void imprimir_informacoes(INFO_FILME pes, int idade) {
     }
 }
 
-//ARRAYS GLOBAIS
-int assento_batman[5] = {0, 0, 0, 0, 0}; // ASSENTOS PARA O FILME DO BATMAN
-int assento_homem_formiga[5] = {0, 0, 0, 0, 0}; // ASSENTOS PARA O FILME DO HOMEM-FORMIGA
-int assento_exorcista[5] = {0, 0, 0, 0, 0}; // ASSENTOS PARA O FILME O EXORCISTA
-int assento_atividade_paranormal[5] = {0, 0, 0, 0, 0}; // ASSENTOS PARA O FILME ATIVIDADE PARANORMAL
+
+
 
 //funçao para imprimir os assentos
 void imprimir_assento(int assentos_FILME[]){
@@ -42,8 +65,6 @@ void imprimir_assento(int assentos_FILME[]){
           }else{printf("INDISPONIVEL\n\n");}//CASO CONTRARIO E NEGATIVO
     }
 }
-
-int esc_assento;//MAIS UMA VARIAVEL GLOBAL. DESSA VEZ ELA SERVE PARA GUARDAR A ESCOLHA DO ASSENTO
 
 
 
@@ -74,19 +95,7 @@ void escolher_assento(int assentos_FILME[]){//FUNÇÃO DA ESCOLHA DO ASSENTO
 }
 
 
-typedef struct { // STRUCT DO FILME. GUARDANDO O TITULO ETC
-    char Titulo_Filme[2][80];
-    char genero[2][80];
-    char ator_papel[2][80];
-} FILME;
 
-
-
-typedef struct { // STRUCT DA SALA... 
-    int capacidade_sala;
-    int CLA_indicativa[2];
-    FILME filme;// O STRUCT DO FILME ESTA AQ DENTRO OU SEJA TUDO NO STRUCT FILME ESTARIA JUNTO COM A SALA OBVIAMENTE
-} SALA;
 
 
 
@@ -102,11 +111,6 @@ void consultar_FILME(SALA pes) {//PARAMENTRO DA SALA
 }
 
 
-
-void imprimir_filme(SALA sala) {//FUNCAO COM UNICO PROPOSITO DE DEIXAR MAIS ORGANIZADO O CODIGO MESMO
-
-    consultar_FILME(sala); //IMPRIME A FUNÇAO DE CONSULTA COM PARAMETRO SALA
-}
 
 
 
@@ -136,7 +140,8 @@ INFO_FILME pes = {"", "", 0};//inicializando pra n dar problemas novamente no st
     if (sua_idade < 18 && esc_sala == 2) {
         printf("SALA 2 INDISPONIVEL PARA MENORES DE IDADE:\n");//A SALA 2 É EXCLUSIVA PARA MAIORES DE IDADE
     } else {/*CASO CONTRARIO É INICIALIZADO AS INFO DA SALA 1 E 2... ACHEI MAIS FACIL ASSIM MAS DEVE TER OUTRA MANEIRA*/
-        SALA sala1 = {
+        
+		SALA sala1 = {
             .capacidade_sala = 5,
             .CLA_indicativa = {12, 12},
             .filme = {//FILME JA É UMA STRUCT DENTRO DE OUTRA POR ISSO A { } 
@@ -145,6 +150,7 @@ INFO_FILME pes = {"", "", 0};//inicializando pra n dar problemas novamente no st
                 .ator_papel = {"Christian Bale como Batman", "Paul Rudd como Homem-formiga"}
             }
         };
+        
         
         
         
@@ -160,9 +166,11 @@ INFO_FILME pes = {"", "", 0};//inicializando pra n dar problemas novamente no st
         
         
 int esc_filme;//VARIAVEL DA ESCOLHA DO FILME
+
+
         switch (esc_sala) {//EXISTEM DOIS CASES PARA ESTE SWITCH
             case 1://PRIMEIRO CASE
-                imprimir_filme(sala1);/*IMPRIME ASS INFORMACOES DA SAALA 1*/
+                consultar_FILME(sala1);
     printf("ESCOLHA O FILME:\n");
     printf("DIGITE (1) PARA O FILME: Batman(SESSAO 13h)\nDIGITE (2) PARA O FILME: Homem-Formiga(SESSAO 15h)\n");
      scanf("%d",&esc_filme);//LENDO A ESCOLHA DO FILME
@@ -194,7 +202,7 @@ int esc_filme;//VARIAVEL DA ESCOLHA DO FILME
                 break;
             case 2:
             	//ESSA PARTE É A PRIMEIRA PARTE APENAS MUDANDO AS INFORMAÇOES DA SESSAO E FILME
-                imprimir_filme(sala2);
+                consultar_FILME(sala1);
                 printf("ESCOLHA O FILME:\n");
     printf("DIGITE (1) PARA O FILME: O Exorcista(SESSAO 19h)\nDIGITE (2) PARA O FILME: Atividade Paranormal(SESSAO 21h)\n");
      scanf("%d",&esc_filme);
